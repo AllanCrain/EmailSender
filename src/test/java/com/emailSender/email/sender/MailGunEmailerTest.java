@@ -1,10 +1,9 @@
-package com.email.sender;
+package com.emailSender.email.sender;
 
-import com.Constants;
-import com.Either;
-import com.email.Email;
-import com.email.ExecutionService;
-import com.exception.UserEmailException;
+import com.emailSender.Constants;
+import com.emailSender.Either;
+import com.emailSender.email.Email;
+import com.emailSender.exception.UserEmailException;
 import org.junit.Test;
 
 import java.net.MalformedURLException;

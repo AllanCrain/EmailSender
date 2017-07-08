@@ -1,6 +1,6 @@
-package com.email;
+package com.emailSender.email;
 
-import com.Either;
+import com.emailSender.Either;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

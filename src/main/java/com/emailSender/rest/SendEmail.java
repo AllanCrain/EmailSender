@@ -1,13 +1,13 @@
-package com.rest;
+package com.emailSender.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.Either;
-import com.email.Email;
-import com.email.Mailer;
-import com.email.sender.MailGunEmailer;
-import com.email.sender.SendGridEmailer;
-import com.exception.UserEmailException;
+import com.emailSender.Either;
+import com.emailSender.email.Email;
+import com.emailSender.email.Mailer;
+import com.emailSender.email.sender.MailGunEmailer;
+import com.emailSender.email.sender.SendGridEmailer;
+import com.emailSender.exception.UserEmailException;
 import org.apache.http.*;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.protocol.HttpContext;

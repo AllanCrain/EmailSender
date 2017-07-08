@@ -1,4 +1,4 @@
-package com.exception;
+package com.emailSender.exception;
 
 public class FatalEmailException extends EmailException {
 

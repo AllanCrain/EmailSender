@@ -1,9 +1,9 @@
-package com.email;
+package com.emailSender.email;
 
 
-import com.Either;
-import com.exception.FatalEmailException;
-import com.exception.UserEmailException;
+import com.emailSender.Either;
+import com.emailSender.exception.FatalEmailException;
+import com.emailSender.exception.UserEmailException;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -81,7 +81,7 @@ public class EmailTest {
         }
 
         @Override
-        protected Either<Exception, String> send(String from, Collection<com.email.Email> to, Collection<Email> cc, Collection<Email> bcc, String subject, String body) {
+        protected Either<Exception, String> send(String from, Collection<com.emailSender.email.Email> to, Collection<Email> cc, Collection<Email> bcc, String subject, String body) {
             return new Either<>(null, "message send successfully from " + name);
         }
     }

@@ -1,7 +1,7 @@
-package com.email;
+package com.emailSender.email;
 
-import com.Either;
-import com.exception.FatalEmailException;
+import com.emailSender.Either;
+import com.emailSender.exception.FatalEmailException;
 
 import java.util.Collection;
 import java.util.concurrent.TimeoutException;

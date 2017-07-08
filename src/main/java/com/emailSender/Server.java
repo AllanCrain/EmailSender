@@ -1,7 +1,8 @@
-package com;
+package com.emailSender;
 
-import com.rest.FileHandler;
-import com.rest.SendEmail;
+import com.emailSender.Constants;
+import com.emailSender.rest.FileHandler;
+import com.emailSender.rest.SendEmail;
 import org.apache.http.impl.bootstrap.HttpServer;
 import org.apache.http.impl.bootstrap.ServerBootstrap;
 

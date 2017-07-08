@@ -1,4 +1,4 @@
-package com.rest;
+package com.emailSender.rest;
 
 import org.apache.http.*;
 import org.apache.http.entity.InputStreamEntity;

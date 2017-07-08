@@ -1,4 +1,4 @@
-package com;
+package com.emailSender;
 
 public class Either<L, R> {
 

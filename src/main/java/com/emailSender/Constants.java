@@ -1,4 +1,4 @@
-package com;
+package com.emailSender;
 
 public final class Constants {
 

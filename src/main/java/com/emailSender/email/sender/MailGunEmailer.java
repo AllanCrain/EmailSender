@@ -1,12 +1,12 @@
-package com.email.sender;
+package com.emailSender.email.sender;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.Either;
-import com.email.Email;
-import com.email.Mailer;
-import com.exception.FatalEmailException;
-import com.exception.UserEmailException;
+import com.emailSender.Either;
+import com.emailSender.email.Email;
+import com.emailSender.email.Mailer;
+import com.emailSender.exception.FatalEmailException;
+import com.emailSender.exception.UserEmailException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
