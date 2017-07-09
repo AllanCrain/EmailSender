@@ -1,12 +1,12 @@
 package com.emailSender.email.sender;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.emailSender.Either;
 import com.emailSender.email.Email;
 import com.emailSender.email.Mailer;
 import com.emailSender.exception.FatalEmailException;
 import com.emailSender.exception.UserEmailException;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -80,20 +80,20 @@ public class MailGunEmailer extends Mailer {
                     logger.log(Level.INFO, "success");
                     String responseEntity = EntityUtils.toString(response.getEntity());
                     Response res = objectMapper.readValue(responseEntity, Response.class);
-                    return new Either<>(null, res.id);
+                    return Either.right(res.id);
                 } else if (statusLine.getStatusCode() == HttpStatus.SC_BAD_REQUEST) {
                     String responseEntity = EntityUtils.toString(response.getEntity());
                     logger.log(Level.SEVERE, responseEntity);
                     Response res = objectMapper.readValue(responseEntity, Response.class);
-                    return new Either<>(new UserEmailException(name, res.message), null);
+                    return Either.left(new UserEmailException(name, res.message));
                 } else {
                     logger.log(Level.SEVERE, statusLine.getReasonPhrase());
-                    return new Either<>(new FatalEmailException(name, statusLine.getReasonPhrase()), null);
+                    return Either.left(new FatalEmailException(name, statusLine.getReasonPhrase()));
                 }
             }
             catch (Exception ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
-                return new Either<>(ex, null);
+                return Either.left(ex);
             }
 
         }, 1, TimeUnit.MINUTES);

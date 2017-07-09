@@ -1,14 +1,14 @@
 package com.emailSender.email.sender;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.emailSender.Either;
 import com.emailSender.email.Email;
 import com.emailSender.email.Mailer;
 import com.emailSender.exception.FatalEmailException;
 import com.emailSender.exception.UserEmailException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
@@ -37,7 +37,7 @@ public class SendGridEmailer extends Mailer {
     private final String       url          = "https://api.sendgrid.com/v3/mail/send";
 
     public SendGridEmailer(String apiKey) {
-        super("SendGrdi");
+        super("SendGrid");
         if (apiKey == null) throw new IllegalArgumentException("apiKey is required");
         this.httpClient = HttpClients.createDefault();
         this.httpPost = new HttpPost(url);
@@ -53,18 +53,18 @@ public class SendGridEmailer extends Mailer {
                 StatusLine statusLine = response.getStatusLine();
                 if (statusLine.getStatusCode() == HttpStatus.SC_ACCEPTED) {
                     logger.log(Level.FINE, EntityUtils.toString(response.getEntity()));
-                    return new Either<>(null, "send successfully");
+                    return new Either.Right<>("send successfully");
                 } else if (statusLine.getStatusCode() == HttpStatus.SC_BAD_REQUEST) {
                     logger.log(Level.SEVERE, EntityUtils.toString(response.getEntity()));
-                    return new Either<>(new UserEmailException(name, "error sending email"), null);
+                    return Either.left(new UserEmailException(name, "error sending email"));
                 } else {
                     logger.log(Level.SEVERE, statusLine.getReasonPhrase());
-                    return new Either<>(new FatalEmailException(name, statusLine.getReasonPhrase()), null);
+                    return Either.left(new FatalEmailException(name, statusLine.getReasonPhrase()));
                 }
             }
             catch (Exception ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
-                return new Either<>(ex, null);
+                return Either.left(ex);
             }
 
         }, 1, TimeUnit.MINUTES);

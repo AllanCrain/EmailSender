@@ -82,7 +82,7 @@ public class EmailTest {
 
         @Override
         protected Either<Exception, String> send(String from, Collection<com.emailSender.email.Email> to, Collection<Email> cc, Collection<Email> bcc, String subject, String body) {
-            return new Either<>(null, "message send successfully from " + name);
+            return Either.right("message send successfully from " + name);
         }
     }
 
@@ -94,7 +94,7 @@ public class EmailTest {
 
         @Override
         protected Either<Exception, String> send(String from, Collection<Email> to, Collection<Email> cc, Collection<Email> bcc, String subject, String body) {
-            return new Either<>(new FatalEmailException(name, "Fatal error in sending email"), null);
+            return Either.left(new FatalEmailException(name, "Fatal error in sending email"));
         }
     }
 
@@ -106,7 +106,7 @@ public class EmailTest {
 
         @Override
         protected Either<Exception, String> send(String from, Collection<Email> to, Collection<Email> cc, Collection<Email> bcc, String subject, String body) {
-            return new Either<>(new UserEmailException("UserEmailErrorSender", "User Error in sending email"), null);
+            return Either.left(new UserEmailException("UserEmailErrorSender", "User Error in sending email"));
         }
     }
 

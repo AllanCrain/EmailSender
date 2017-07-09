@@ -1,28 +1,85 @@
 package com.emailSender;
 
-public class Either<L, R> {
+import java.util.NoSuchElementException;
 
-    private L left;
-    private R right;
+/**
+ * A minimal implementation of Either monad. Inspired by https://bitbucket.org/atlassian/fugue/src/b0868a00273f8f2ccf5d1a2610a8a5507ce641c4/fugue/src/main/java/com/atlassian/fugue/Either.java?at=master
+ */
+public abstract class Either<L, R> {
 
-    public Either(L left, R right) {
-        this.left = left;
-        this.right = right;
+    public static <L, R> Either<L, R> left(L left) {
+        if (left == null) throw new IllegalArgumentException("cannot be null");
+        return new Left<>(left);
     }
 
-    public boolean hasRight() {
-        return this.right != null;
+    public static <L, R> Either<L, R> right(R right) {
+        if (right == null) throw new IllegalArgumentException("cannot be null");
+        return new Right<>(right);
     }
 
-    public boolean hasLeft() {
-        return this.left != null;
+    public abstract boolean hasLeft();
+
+    public abstract boolean hasRight();
+
+    public abstract L getLeft();
+
+    public abstract R getRight();
+
+    public static final class Left<L, R> extends Either<L, R> {
+
+        private final L left;
+
+        public Left(L left) {
+            this.left = left;
+        }
+
+        @Override
+        public boolean hasLeft() {
+            return true;
+        }
+
+        @Override
+        public boolean hasRight() {
+            return false;
+        }
+
+        @Override
+        public L getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public R getRight() {
+            throw new NoSuchElementException();
+        }
     }
 
-    public R getRight() {
-        return this.right;
-    }
+    public static final class Right<L, R> extends Either<L, R> {
 
-    public L getLeft() {
-        return this.left;
+        private final R right;
+
+        public Right(R right) {
+            this.right = right;
+        }
+
+        @Override
+        public boolean hasLeft() {
+            return false;
+        }
+
+        @Override
+        public boolean hasRight() {
+            return true;
+        }
+
+        @Override
+        public R getRight() {
+            return this.right;
+        }
+
+        @Override
+        public L getLeft() {
+            throw new NoSuchElementException();
+        }
     }
 }

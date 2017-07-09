@@ -16,7 +16,7 @@ public class ExecutionService {
             return executorService.submit(callable).get(timeOut, unit);
         }
         catch (Exception e) {
-            return new Either<>(e, null);
+            return Either.left(e);
         }
     }
 }
